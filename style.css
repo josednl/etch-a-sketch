@@ -7,12 +7,42 @@
     font-family: 'Press Start 2P', sans-serif;
 }
 
+h1 {
+    text-align: center;
+    margin: 38px;
+}
+
+.container {
+    padding: 50px 100px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-wrap: wrap;
+}
+
+#buttons-box {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    padding: 0px 25px;
+}
+
+#buttons-box button {
+    padding: 15px;
+    margin: 15px 0px;
+}
+
+#sketch {
+    width: 80%;
+    min-width: 640px;
+    border: 10px solid black;
+    border-radius: 10px;
+}
+
 .row {
     display: flex;
 }
 
 .col {
-    width: 60px;
-    height: 60px;
     border: 1px solid black;
 }
