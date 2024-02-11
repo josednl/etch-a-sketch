@@ -1,8 +1,10 @@
 const sketch = document.getElementById('sketch');
 const resize = document.getElementById('resize');
 const color_buttons = document.querySelectorAll('.color-button');
-const custom_color = document.getElementById('custom');
+const custom_button = document.getElementById('custom');
 const color_picker = document.getElementById('color-picker');
+const clear_button = document.getElementById('clear');
+const darkening_button = document.getElementById('darkening');
 
 var coordinates;
 var color = "black";
@@ -10,16 +12,19 @@ var rows_grid = 16;
 var cols_grid = 16;
 
 resize.addEventListener('click', resizeGrid);
-custom_color.addEventListener('click', () => {
+clear_button.addEventListener('click', clearGrid);
+darkening_button.addEventListener('click', darkening);
+custom_button.addEventListener('click', () => {
     color_picker.click();
 });
 color_picker.addEventListener('input', () => {
     color = color_picker.value;
-    console.log(color);
+    getCoordinates();
 });
 Array.prototype.forEach.call(color_buttons, (color_button) => {
     color_button.addEventListener('click', () => {
         color = color_button.id;
+        getCoordinates();
     });
 });
 
@@ -63,6 +68,28 @@ function getCoordinates() {
 }
 
 function colorSketch (coordinate) {
-    console.log(coordinate.currentTarget.style.backgroundColor, color);
-    coordinate.currentTarget.style.backgroundColor = color;
+    coordinate.currentTarget.style.background = color;
+}
+
+function clearGrid() {
+    coordinates = document.getElementsByClassName('col');
+    Array.from(coordinates).forEach((coordinate) => {
+        coordinate.style.background = "";
+    });
+}
+
+function darkening () {
+    let alpha = 0.1; 
+    coordinates = document.getElementsByClassName('col');
+    color = "rgba(0, 0, 0, " + alpha + ")";
+    Array.from(coordinates).forEach((coordinate) => {
+        coordinate.addEventListener('mouseover', () => {   
+            coordinate.style.background = color;
+            if(alpha <= 1) {
+                color = "rgba(0, 0, 0, " + alpha + ")";
+                alpha += 0.1;
+            }
+        });
+    });
+
 }
